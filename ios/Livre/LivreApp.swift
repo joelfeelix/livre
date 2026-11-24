@@ -1,6 +1,11 @@
 import SwiftUI
 import WebKit
 import UniformTypeIdentifiers
+import UserNotifications
+import WidgetKit
+
+/// Grupo compartilhado entre o app e o widget.
+let appGroup = "group.com.livreapp.livre"
 
 @main
 struct LivreApp: App {
@@ -68,6 +73,8 @@ final class WebViewController: UIViewController, WKNavigationDelegate, WKUIDeleg
         let ucc = WKUserContentController()
         ucc.add(LeakAvoider(self), name: "store")
         ucc.add(LeakAvoider(self), name: "share")
+        ucc.add(LeakAvoider(self), name: "reminders")
+        ucc.add(LeakAvoider(self), name: "widget")
         let saved = (try? String(contentsOf: storeURL, encoding: .utf8)) ?? "null"
         let js = "window.__LIVRE_NATIVE = \(saved.isEmpty ? "null" : saved);"
         ucc.addUserScript(WKUserScript(source: js, injectionTime: .atDocumentStart, forMainFrameOnly: true))
@@ -98,7 +105,60 @@ final class WebViewController: UIViewController, WKNavigationDelegate, WKUIDeleg
             let ac = UIActivityViewController(activityItems: [tmp], applicationActivities: nil)
             ac.popoverPresentationController?.sourceView = view
             present(ac, animated: true)
+        case "reminders":
+            guard let body = message.body as? [String: Any] else { return }
+            scheduleReminders(body)
+        case "widget":
+            guard let body = message.body as? [String: Any],
+                  let data = try? JSONSerialization.data(withJSONObject: body) else { return }
+            let defaults = UserDefaults(suiteName: appGroup)
+            if defaults?.data(forKey: "widget") != data {
+                defaults?.set(data, forKey: "widget")
+                WidgetCenter.shared.reloadAllTimelines()
+            }
         default: break
+        }
+    }
+
+    // MARK: Lembretes de afirmações
+    private func scheduleReminders(_ body: [String: Any]) {
+        let count = (body["count"] as? Int) ?? 0
+        let start = (body["start"] as? Int) ?? 8
+        let end = max((body["end"] as? Int) ?? 21, start)
+        let texts = (body["texts"] as? [String]) ?? []
+        let ask = (body["ask"] as? Bool) ?? false
+        let center = UNUserNotificationCenter.current()
+        center.removePendingNotificationRequests(withIdentifiers: (0..<24).map { "aff-\($0)" })
+        guard count > 0, !texts.isEmpty else { return }
+
+        let schedule = { [weak self] in
+            let span = (end - start) * 60
+            for i in 0..<min(count, 24) {
+                let minute = start * 60 + (count == 1 ? span / 2 : span * i / (count - 1))
+                let content = UNMutableNotificationContent()
+                content.title = "✨ Lembre-se"
+                content.body = texts[i % texts.count]
+                content.sound = .default
+                var dc = DateComponents()
+                dc.hour = minute / 60
+                dc.minute = minute % 60
+                let trigger = UNCalendarNotificationTrigger(dateMatching: dc, repeats: true)
+                center.add(UNNotificationRequest(identifier: "aff-\(i)", content: content, trigger: trigger))
+            }
+            if ask { DispatchQueue.main.async { self?.webView.evaluateJavaScript("window.remindersStatus && remindersStatus(true)") } }
+        }
+        center.getNotificationSettings { settings in
+            switch settings.authorizationStatus {
+            case .authorized, .provisional, .ephemeral:
+                schedule()
+            case .notDetermined:
+                center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
+                    if granted { schedule() }
+                    else { DispatchQueue.main.async { self.webView.evaluateJavaScript("window.remindersStatus && remindersStatus(false)") } }
+                }
+            default:
+                DispatchQueue.main.async { self.webView.evaluateJavaScript("window.remindersStatus && remindersStatus(false)") }
+            }
         }
     }
 

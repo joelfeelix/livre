@@ -1,5 +1,8 @@
 # Como subir o Livre para o TestFlight
 
+O app iOS tem: contador, afirmações, mini diário, SOS e técnicas; **widget** (contador e afirmação do dia,
+na tela de início e na tela bloqueada) e **lembretes** de afirmações por notificação.
+
 O app iOS carrega o app web (`index.html`) de dentro do próprio aplicativo, então funciona sem internet.
 Os dados ficam salvos no aparelho, com uma cópia de segurança em Documentos/livre.json.
 
@@ -9,9 +12,15 @@ Os dados ficam salvos no aparelho, com uma cópia de segurança em Documentos/li
 
 ## Passo a passo
 1. Clone o repositório e abra `ios/Livre.xcodeproj` no Xcode.
-2. Clique no projeto **Livre** → target **Livre** → aba **Signing & Capabilities**:
+2. Clique no projeto **Livre** e, na aba **Signing & Capabilities**, faça isso nos **dois** targets
+   (**Livre** e **LivreWidget**):
    - Em **Team**, escolha a sua conta de desenvolvedor.
-   - Se o Xcode reclamar do **Bundle Identifier** (`com.livreapp.livre`), troque por um seu, por exemplo `com.seunome.livre`.
+   - Se o Xcode reclamar do **Bundle Identifier**, troque por um seu, mantendo o padrão:
+     app `com.seunome.livre` e widget `com.seunome.livre.widget`.
+   - Em **App Groups**, o grupo `group.com.livreapp.livre` já vem marcado. Se trocou o Bundle ID,
+     troque também o grupo (ex.: `group.com.seunome.livre`) nos dois targets **e** nos arquivos
+     `ios/Livre/LivreApp.swift` e `ios/LivreWidget/LivreWidget.swift` (constante `appGroup`).
+     É esse grupo que deixa o widget ler os dados do app.
 3. No App Store Connect (https://appstoreconnect.apple.com) → **Apps** → **+** → **Novo app**:
    - Plataforma iOS, nome "Livre" (ou outro, se já existir), idioma Português (Brasil),
      e o mesmo Bundle ID do passo 2.

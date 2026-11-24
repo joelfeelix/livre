@@ -22,7 +22,8 @@
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
-body{min-height:100vh;overflow-x:hidden}
+body{min-height:100vh;overflow-x:hidden;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+input,textarea,.entry p,.mini-a{-webkit-user-select:text;user-select:text}
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
 input,textarea,select{font:inherit;color:var(--tx);background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;width:100%;outline:none}
 input:focus,textarea:focus,select:focus{border-color:var(--acc)}
@@ -105,7 +106,7 @@ details.tech[open] summary{border-bottom:1px solid var(--line);margin-bottom:12p
 /* nav */
 nav{position:fixed;left:0;right:0;bottom:0;background:rgba(15,20,25,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:8px 8px calc(8px + var(--safe-b));z-index:20}
 nav .in{max-width:560px;margin:0 auto;display:flex;justify-content:space-around}
-nav button{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;color:var(--tx3);padding:4px 8px;min-width:58px}
+nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10.5px;color:var(--tx3);padding:4px 0;min-width:0;white-space:nowrap}
 nav button .e{font-size:22px;filter:grayscale(1);opacity:.7}
 nav button.on{color:var(--acc)} nav button.on .e{filter:none;opacity:1}
 nav button.sos .e{filter:none;opacity:1}
@@ -136,6 +137,21 @@ input[type=range]{padding:0;background:none;border:0;accent-color:var(--warn)}
 .toast{position:fixed;left:50%;bottom:calc(96px + var(--safe-b));transform:translateX(-50%);background:var(--acc);color:#06221a;padding:10px 18px;border-radius:999px;font-weight:700;z-index:60;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
 .toast.show{opacity:1}
 .quote{font-size:17px;font-style:italic;color:var(--tx);text-align:center;padding:4px 8px}
+/* afirmações */
+.affcard{position:relative;border-radius:26px;min-height:max(300px, calc(100vh - 340px - var(--safe-t) - var(--safe-b)));min-height:max(300px, calc(100dvh - 340px - var(--safe-t) - var(--safe-b)));display:flex;align-items:center;justify-content:center;padding:34px 26px 54px;text-align:center;cursor:pointer;user-select:none;-webkit-user-select:none;box-shadow:0 10px 40px rgba(0,0,0,.35);transition:background .5s;overflow:hidden}
+.affcard::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.12),transparent 55%)}
+.aff-t{position:relative;font-family:"New York","Iowan Old Style",Georgia,serif;font-size:31px;line-height:1.25;font-weight:600;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.25);letter-spacing:-.01em}
+.aff-hint{position:absolute;bottom:16px;left:0;right:0;font-size:12px;color:rgba(255,255,255,.55)}
+@keyframes affIn{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@keyframes affInDown{from{opacity:0;transform:translateY(-26px)}to{opacity:1;transform:none}}
+.aff-actions{display:flex;justify-content:space-around;margin:14px 0 4px}
+.aff-actions button{width:54px;height:54px;border-radius:50%;background:var(--card);border:1px solid var(--line);font-size:22px}
+.aff-actions button:active{transform:scale(.92)}
+.aff-mini{border:0;cursor:pointer;padding:18px}
+.aff-mini-t{font-family:"New York","Iowan Old Style",Georgia,serif;font-size:21px;font-weight:600;color:#fff;margin:8px 0 10px;line-height:1.3}
+/* mini diário */
+.mini-q{font-weight:700;margin:4px 0 10px}
+.mini-a{background:var(--bg2);border-radius:12px;padding:10px 12px;white-space:pre-wrap}
 </style>
 </head>
 <body>
@@ -174,6 +190,58 @@ const QUOTES = [
   'O seu cérebro está se reconstruindo. Dê tempo a ele.',
   'Você já passou por 100% dos seus piores dias até aqui.',
 ];
+const AFF_CATS = [
+  {k:'livre', t:'Liberdade', e:'🕊️'}, {k:'forca', t:'Força', e:'💪'}, {k:'amor', t:'Amor-próprio', e:'💚'},
+  {k:'calma', t:'Calma', e:'🌊'}, {k:'recomeco', t:'Recomeço', e:'🌅'}, {k:'gratidao', t:'Gratidão', e:'🙏'},
+];
+const AFFS = {
+  livre: [
+    'Eu sou livre. Nenhum vício decide por mim.','Eu escolho a minha liberdade, um dia de cada vez.','Eu sou maior do que qualquer vontade passageira.',
+    'Meu corpo está se curando a cada dia sem o vício.','Eu não preciso disso para ser feliz.','Cada dia limpo me deixa mais forte.',
+    'Eu sou dono das minhas escolhas.','A vontade passa. A minha decisão fica.','Eu mereço uma vida sem correntes.',
+    'Eu troco o alívio rápido pela paz duradoura.','Meu cérebro está se reconstruindo, e eu dou tempo a ele.','Eu sou a prova de que é possível mudar.',
+    'Hoje eu digo sim para mim e não para o vício.','Eu estou me tornando quem eu sempre quis ser.','Eu controlo meus hábitos. Eles não me controlam.',
+  ],
+  forca: [
+    'Eu sou forte.','Eu sou capaz de fazer coisas difíceis.','Eu já sobrevivi a todos os meus piores dias.',
+    'O desconforto não me derruba. Ele me fortalece.','Eu tenho tudo de que preciso para vencer hoje.','Eu sou corajoso o bastante para mudar.',
+    'Cada "não" que eu digo me deixa mais firme.','Eu sou disciplinado e constante.','Eu cumpro as promessas que faço a mim mesmo.',
+    'Desafios me fazem crescer.','Eu não desisto de mim.','A minha força vem de dentro.',
+    'Eu sou mais resistente do que imagino.','Eu enfrento a vontade de cabeça erguida.',
+  ],
+  amor: [
+    'Eu sou suficiente.','Eu mereço ser amado, inclusive por mim.','Eu me trato com gentileza.',
+    'Eu sou digno de uma vida boa.','Eu me orgulho de quem estou me tornando.','Eu cuido do meu corpo porque ele é meu lar.',
+    'Eu sou importante.','Eu aceito minhas falhas e continuo crescendo.','Eu falo comigo como falaria com alguém que amo.',
+    'Eu mereço paz.','Eu sou valioso exatamente como sou.','Eu me perdoo e sigo em frente.',
+    'Eu escolho me respeitar.','Minha história não define o meu valor.',
+  ],
+  calma: [
+    'Eu estou em paz neste momento.','Eu respiro fundo e solto a tensão.','Esta sensação é passageira.',
+    'Eu estou seguro aqui e agora.','Eu não preciso resolver tudo hoje.','Eu solto o que não posso controlar.',
+    'Minha mente está ficando mais leve.','Eu acolho o que sinto sem precisar fugir.','Eu sou calmo como o mar depois da onda.',
+    'Eu vou devagar, e está tudo bem.','A ansiedade não me governa.','Eu volto para o presente com cada respiração.',
+    'Eu tenho tempo.','O silêncio também me fortalece.',
+  ],
+  recomeco: [
+    'Hoje é um novo começo.','Recair não apaga o que eu aprendi.','Eu sempre posso recomeçar.',
+    'Progresso, não perfeição.','Meu passado não decide o meu futuro.','Eu aprendo com cada tropeço.',
+    'Cada manhã me dá uma nova chance.','Eu sou maior do que o meu pior dia.','Eu me levanto quantas vezes for preciso.',
+    'O caminho tem curvas, e eu continuo andando.','Eu escolho tentar de novo.','Eu não estou atrasado. Estou no meu tempo.',
+    'Pequenos passos também me levam longe.','Hoje eu faço melhor do que ontem.',
+  ],
+  gratidao: [
+    'Eu sou grato por estar vivo hoje.','Eu sou grato pelo meu corpo, que se recupera.','Eu sou grato pelas pessoas que torcem por mim.',
+    'Eu enxergo as coisas boas da minha vida.','Eu agradeço por cada dia livre.','A vida me dá motivos para seguir.',
+    'Eu valorizo as pequenas vitórias.','Hoje eu escolho a gratidão.','Eu sou grato por ter coragem de mudar.',
+    'Eu tenho mais do que preciso.','Cada respiração é um presente.','Eu agradeço a mim mesmo por não desistir.',
+  ],
+};
+const AFF_BG = [
+  'linear-gradient(165deg,#1f4a3f,#0f2027)','linear-gradient(165deg,#3d3366,#141e30)','linear-gradient(165deg,#5a4330,#1c1c24)',
+  'linear-gradient(165deg,#1f4466,#0f1a2b)','linear-gradient(165deg,#5a2c44,#1a1420)','linear-gradient(165deg,#2f5530,#121a14)',
+  'linear-gradient(165deg,#5e4a1f,#1d1a12)','linear-gradient(165deg,#24525a,#0e1b1f)',
+];
 const DISTRACTIONS = [
   'Beba um copo grande de água gelada, devagar.','Saia para uma caminhada de 10 minutos.','Tome um banho (frio, se aguentar).',
   'Faça 20 polichinelos ou flexões.','Ligue ou mande mensagem para alguém de confiança.','Escove os dentes.',
@@ -191,10 +259,13 @@ function load(){
 }
 const NATIVE = window.webkit && window.webkit.messageHandlers;
 let S = load();
+function ensureAff(){ S.aff = Object.assign({cats: AFF_CATS.map(c=>c.k), favs: [], custom: [], mode: 'all', reminders: {count: 0, start: 8, end: 21}, read: {}}, S.aff || {}); }
+ensureAff();
 function save(){
   const json = JSON.stringify(S);
   try { localStorage.setItem(KEY, json); } catch(e){ if (!NATIVE) toast('Não foi possível salvar'); }
   try { NATIVE && NATIVE.store && NATIVE.store.postMessage(json); } catch(e){}
+  try { syncWidget(); } catch(e){}
 }
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,7);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -219,12 +290,12 @@ function vibrate(p){ try{ navigator.vibrate && navigator.vibrate(p); }catch(e){}
 
 /* ================== Navegação ================== */
 let tab = 'home';
-const TABS = [['home','🏠','Início'],['tech','📚','Técnicas'],['sos','🆘','SOS'],['diary','📓','Diário'],['stats','📊','Progresso']];
+const TABS = [['home','🏠','Início'],['aff','✨','Afirmações'],['sos','🆘','SOS'],['tech','📚','Técnicas'],['diary','📓','Diário'],['stats','📊','Progresso']];
 function renderNav(){
   $('#nav').innerHTML = TABS.map(([k,e,t]) => `<button class="${tab===k?'on':''} ${k==='sos'?'sos':''}" onclick="go('${k}')"><span class="e">${e}</span>${t}</button>`).join('');
 }
 function go(t){ tab=t; stopAll(); render(); window.scrollTo(0,0); }
-function render(){ renderNav(); ({home:Home, tech:Tech, sos:Sos, diary:Diary, stats:Stats})[tab](); }
+function render(){ renderNav(); document.body.classList.toggle('aff-mode', tab==='aff'); ({home:Home, aff:Aff, tech:Tech, sos:Sos, diary:Diary, stats:Stats})[tab](); }
 
 /* ================== Início ================== */
 function Home(){
@@ -238,7 +309,7 @@ function Home(){
         <p class="muted">Escolha o que você quer deixar para trás. O contador começa agora (ou na data que você parou).</p>
         <button class="btn pri" style="margin-top:14px" onclick="habitForm()">＋ Adicionar vício</button>
       </div>
-      <div class="card"><p class="quote">“${QUOTES[0]}”</p></div>`;
+      ${dailyAffCard()}`;
     return;
   }
   const h = active();
@@ -286,6 +357,10 @@ function Home(){
     </div>
     <button class="btn pri" style="margin-bottom:12px" onclick="go('sos')">🆘 Estou com vontade agora</button>
 
+    ${dailyAffCard()}
+
+    ${miniDiary()}
+
     <div class="sec-t">Conquistas</div>
     <div class="card"><div class="badges">${MILESTONES.map(m=>`<div class="badge ${streak(h)>=m.ms?'got':''}"><div class="e">${m.e}</div><div class="t">${m.t}</div></div>`).join('')}</div></div>
 
@@ -318,6 +393,30 @@ function tick(){
   set('cTime', h.hoursPerDay ? dur(days*h.hoursPerDay*HOUR) : 'defina ✏️');
 }
 setInterval(tick, 1000);
+const MINI_QS = [
+  'Pelo que você é grato hoje?','Qual foi a sua pequena vitória de hoje?','O que te deu vontade hoje, e como você lidou?',
+  'Como o seu corpo está se sentindo?','O que você quer fazer com o tempo e o dinheiro que está economizando?',
+  'Quem te apoiou hoje (ou quem você pode procurar)?','O que te deixou em paz hoje?','O que você diria para você de um mês atrás?',
+  'Qual situação você quer evitar amanhã?','Do que você se orgulha hoje?','O que te fez sorrir hoje?',
+  'Qual é a sua intenção para amanhã?','O que você aprendeu sobre você esta semana?','Que hábito bom você quer colocar no lugar do vício?',
+];
+function miniQ(){ const d = new Date(); return MINI_QS[(d.getFullYear()*372 + d.getMonth()*31 + d.getDate()) % MINI_QS.length]; }
+function miniDiary(){
+  const q = miniQ(), k = todayKey();
+  const done = S.journal.find(j => j.mini === k);
+  return `<div class="card">
+    <div class="tiny">📝 MINI DIÁRIO DE HOJE</div>
+    <div class="mini-q">${esc(q)}</div>
+    ${done ? `<div class="mini-a">${esc(done.text.split('\n').slice(1).join('\n'))}</div><div class="tiny" style="margin-top:8px">Salvo no seu diário ✓ · <a href="#" style="color:var(--acc)" onclick="go('diary');return false">ver diário</a></div>`
+    : `<div class="moods" style="margin-bottom:10px">${MOODS.map((m,i)=>`<button class="mood ${diaryMood===i?'on':''}" onclick="setMood(${i})" title="${m[1]}">${m[0]}</button>`).join('')}</div>
+       <div class="row"><input id="miniA" placeholder="Escreva uma linha..." onkeydown="if(event.key==='Enter')saveMini()"><button class="icon-btn" style="flex:none;width:48px;height:48px;background:var(--acc);color:#06221a;border-color:var(--acc)" onclick="saveMini()">✓</button></div>`}
+  </div>`;
+}
+function saveMini(){
+  const t = $('#miniA').value.trim(); if (!t){ toast('Escreva algo'); return; }
+  S.journal.push({id:uid(), at:Date.now(), mood:diaryMood, mini:todayKey(), text:`${miniQ()}\n${t}`});
+  save(); toast('Anotado no diário 📝'); render();
+}
 function pick(id){ S.activeId=id; save(); render(); }
 function pledge(){
   const h=active(), k=h.id+'|'+todayKey();
@@ -565,6 +664,154 @@ function distract(){
     <div class="grid2" style="margin-top:12px"><button class="btn" onclick="$('#dT').textContent=pickD()">Outra 🎲</button><button class="btn pri" onclick="closeSheet()">Vou fazer!</button></div>`);
 }
 
+/* ================== Afirmações ================== */
+const ALL_AFFS = () => Object.entries(AFFS).flatMap(([k,l]) => l.map(t => t));
+const hash = s => { let h=0; for (const c of s) h = (h*31 + c.charCodeAt(0))|0; return Math.abs(h); };
+function dailyAff(d = new Date()){ const all = ALL_AFFS(); return all[(d.getFullYear()*372 + d.getMonth()*31 + d.getDate()) % all.length]; }
+function dailyAffCard(){
+  const t = dailyAff();
+  return `<div class="card aff-mini" style="background:${AFF_BG[hash(t)%AFF_BG.length]}" onclick="openAff(${JSON.stringify(t).replace(/"/g,'&quot;')})">
+    <div class="tiny" style="color:rgba(255,255,255,.65)">✨ AFIRMAÇÃO DO DIA</div>
+    <div class="aff-mini-t">${esc(t)}</div>
+    <div class="tiny" style="color:rgba(255,255,255,.55)">Toque para ver mais</div></div>`;
+}
+function affPool(){
+  const a = S.aff;
+  if (a.mode==='favs') return [...a.favs];
+  if (a.mode==='mine') return [...a.custom];
+  const pool = [...a.cats.flatMap(k => AFFS[k]||[]), ...a.custom];
+  return pool.length ? pool : ALL_AFFS();
+}
+function shuffled(l){ const a=[...l]; for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+let affDeck = null, affI = 0;
+function openAff(first){ affDeck = null; affFirst = first; go('aff'); }
+let affFirst = null;
+function buildDeck(){
+  affDeck = shuffled(affPool());
+  if (affFirst){ affDeck = [affFirst, ...affDeck.filter(x=>x!==affFirst)]; affFirst = null; }
+  affI = 0;
+}
+function Aff(){
+  if (!affDeck) buildDeck();
+  const a = S.aff;
+  const modes = [['all','✨ Todas'],['favs',`❤️ Favoritas (${a.favs.length})`],['mine',`✍️ Minhas (${a.custom.length})`]];
+  const t = affDeck[affI];
+  $('#app').innerHTML = `
+    <div class="top"><h1>Afirmações</h1><button class="icon-btn" onclick="affSettings()" title="Ajustes">⚙️</button></div>
+    <div class="chips">${modes.map(([k,l])=>`<button class="chip ${a.mode===k?'on':''}" onclick="affMode('${k}')">${l}</button>`).join('')}</div>
+    ${t ? `
+    <div class="affcard" id="affCard" style="background:${AFF_BG[hash(t)%AFF_BG.length]}">
+      <div class="aff-t" id="affT">${esc(t)}</div>
+      <div class="aff-hint">Toque ou deslize para cima · ${affI+1}/${affDeck.length}</div>
+    </div>
+    <div class="aff-actions">
+      <button onclick="affPrev()" title="Anterior">↩︎</button>
+      <button onclick="affFav()" id="affFavB" title="Favoritar">${a.favs.includes(t)?'❤️':'🤍'}</button>
+      <button onclick="affSpeak()" title="Ouvir">🔊</button>
+      <button onclick="affShare()" title="Compartilhar">↗︎</button>
+      <button onclick="affAdd()" title="Escrever a minha">✍️</button>
+    </div>` : `
+    <div class="card empty"><div class="e">${a.mode==='favs'?'❤️':'✍️'}</div>
+      <p class="muted">${a.mode==='favs'?'Toque no coração das afirmações que mais tocam você e elas aparecem aqui.':'Escreva afirmações com as suas palavras. Elas também entram nos lembretes.'}</p>
+      ${a.mode==='mine'?'<button class="btn pri" style="margin-top:12px" onclick="affAdd()">✍️ Escrever uma afirmação</button>':''}</div>`}
+  `;
+  const card = $('#affCard'); if (!card) return;
+  let y0 = null;
+  card.addEventListener('touchstart', e => { y0 = e.touches[0].clientY; }, {passive:true});
+  card.addEventListener('touchend', e => { if (y0==null) return; const dy = e.changedTouches[0].clientY - y0; y0=null; if (dy < -40) affNext(); else if (dy > 40) affPrev(); else affNext(); });
+  card.addEventListener('click', e => { if (!('ontouchstart' in window)) affNext(); });
+}
+function affShow(dir){
+  const t = affDeck[affI], el = $('#affT'), card = $('#affCard');
+  if (!el) return Aff();
+  card.style.background = AFF_BG[hash(t)%AFF_BG.length];
+  el.style.animation = 'none'; el.offsetHeight; el.style.animation = `affIn${dir>0?'':'Down'} .45s ease`;
+  el.textContent = t;
+  card.querySelector('.aff-hint').textContent = `Toque ou deslize para cima · ${affI+1}/${affDeck.length}`;
+  $('#affFavB').textContent = S.aff.favs.includes(t)?'❤️':'🤍';
+  const k = todayKey(); S.aff.read[k] = (S.aff.read[k]||0)+1; save();
+  try { speechSynthesis.cancel(); } catch(e){}
+}
+function affNext(){ if (!affDeck.length) return; affI = (affI+1) % affDeck.length; affShow(1); }
+function affPrev(){ if (!affDeck.length) return; affI = (affI-1+affDeck.length) % affDeck.length; affShow(-1); }
+function affMode(m){ S.aff.mode = m; save(); affDeck = null; Aff(); }
+function affFav(){
+  const t = affDeck[affI], f = S.aff.favs, i = f.indexOf(t);
+  if (i>=0) f.splice(i,1); else { f.push(t); vibrate(15); toast('Salva nas favoritas ❤️'); }
+  save(); $('#affFavB').textContent = f.includes(t)?'❤️':'🤍';
+  document.querySelectorAll('.chip')[1].textContent = `❤️ Favoritas (${f.length})`;
+}
+function affSpeak(){
+  try {
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(affDeck[affI]); u.lang = 'pt-BR'; u.rate = .92;
+    const v = speechSynthesis.getVoices().find(v => v.lang && v.lang.replace('_','-').startsWith('pt-BR')); if (v) u.voice = v;
+    speechSynthesis.speak(u);
+  } catch(e){ toast('Seu aparelho não suporta leitura em voz alta'); }
+}
+async function affShare(){
+  const t = affDeck[affI];
+  try { if (navigator.share) { await navigator.share({text: `“${t}”\n— Livre`}); return; } } catch(e){ return; }
+  try { await navigator.clipboard.writeText(`“${t}”`); toast('Copiada'); } catch(e){ toast(t); }
+}
+function affAdd(){
+  sheet(`<h2>✍️ Minha afirmação</h2>
+    <p class="small muted">Escreva no presente e na primeira pessoa. Ex.: “Eu sou um pai presente e saudável.”</p>
+    <textarea id="affNew" placeholder="Eu sou..."></textarea>
+    <button class="btn pri" style="margin-top:12px" onclick="affSaveNew()">Salvar</button>`);
+  setTimeout(()=>$('#affNew')?.focus(), 250);
+}
+function affSaveNew(){
+  const t = $('#affNew').value.trim(); if (!t) return;
+  S.aff.custom.push(t); save(); closeSheet(); affFirst = t; affDeck = null; S.aff.mode = S.aff.mode==='favs' ? 'mine' : S.aff.mode; Aff(); toast('Afirmação salva ✨');
+}
+function affSettings(){
+  const a = S.aff, r = a.reminders;
+  const hours = [...Array(24)].map((_,h)=>h);
+  sheet(`<h2>⚙️ Afirmações</h2>
+    <label>Categorias</label>
+    <div class="chips" style="flex-wrap:wrap">${AFF_CATS.map(c=>`<button class="chip ${a.cats.includes(c.k)?'on':''}" onclick="affCat('${c.k}',this)">${c.e} ${c.t}</button>`).join('')}</div>
+    <label>🔔 Lembretes por dia</label>
+    ${NATIVE && NATIVE.reminders ? `
+      <div class="seg" id="rCount">${[0,1,3,5,8].map(n=>`<button class="${r.count===n?'on':''}" onclick="setRem('count',${n},this)">${n===0?'Off':n}</button>`).join('')}</div>
+      <div class="grid2"><div><label>Das</label><select onchange="setRem('start',+this.value)">${hours.map(h=>`<option value="${h}" ${h===r.start?'selected':''}>${h}h</option>`).join('')}</select></div>
+      <div><label>Até</label><select onchange="setRem('end',+this.value)">${hours.map(h=>`<option value="${h}" ${h===r.end?'selected':''}>${h}h</option>`).join('')}</select></div></div>
+      <p class="tiny">Você recebe afirmações das suas categorias, espalhadas nesse horário.</p>`
+    : `<p class="small muted" style="margin:0">Os lembretes com notificação funcionam no app do iPhone.</p>`}
+    ${a.custom.length ? `<label>Minhas afirmações</label>${a.custom.map((t,i)=>`<div class="reason"><span>${esc(t)}</span><button class="tiny" onclick="affDel(${i})">✕</button></div>`).join('')}` : ''}
+    <button class="btn" style="margin-top:16px" onclick="closeSheet()">Pronto</button>`);
+}
+function affCat(k, el){
+  const c = S.aff.cats, i = c.indexOf(k);
+  if (i>=0){ if (c.length===1) { toast('Deixe pelo menos uma'); return; } c.splice(i,1); } else c.push(k);
+  el.classList.toggle('on', c.includes(k)); save(); affDeck = null; syncReminders(); Aff();
+}
+function affDel(i){ S.aff.custom.splice(i,1); save(); affDeck = null; affSettings(); Aff(); }
+function setRem(k, v, el){
+  S.aff.reminders[k] = v;
+  if (k==='count') document.querySelectorAll('#rCount button').forEach(b=>b.classList.toggle('on', b===el));
+  save(); syncReminders(true);
+}
+function syncReminders(ask){
+  if (!(NATIVE && NATIVE.reminders)) return;
+  const r = S.aff.reminders;
+  const texts = shuffled([...affPool(), ...S.aff.favs]).slice(0, Math.max(r.count, 1));
+  NATIVE.reminders.postMessage({count: r.count, start: r.start, end: Math.max(r.end, r.start), texts, ask: !!ask});
+}
+window.remindersStatus = ok => { if (!ok) toast('Ative as notificações do Livre nos Ajustes do iPhone'); else if (S.aff.reminders.count) toast('Lembretes ativados 🔔'); };
+
+/* ================== Widget (iPhone) ================== */
+function syncWidget(){
+  if (!(NATIVE && NATIVE.widget)) return;
+  const h = active();
+  NATIVE.widget.postMessage({
+    name: h ? h.name : '', emoji: h ? h.emoji : '🕊️', start: h ? h.start : 0,
+    // afirmações dos próximos 14 dias, para o widget trocar sozinho à meia-noite
+    affirmations: [...Array(14)].map((_,i) => { const d = new Date(); d.setDate(d.getDate()+i); return dailyAff(d); }),
+    day0: (() => { const d = new Date(); d.setHours(0,0,0,0); return d.getTime(); })(),
+  });
+}
+
 /* ================== Técnicas ================== */
 const TECHS = [
   ['🌊','Surfar a fissura (Urge Surfing)','Observe a vontade sem obedecer a ela.',
@@ -689,13 +936,15 @@ function exportData(){
 function importData(inp){
   const f = inp.files[0]; if(!f) return;
   const r = new FileReader();
-  r.onload = () => { try { const d = JSON.parse(r.result); if(!d.habits) throw 0; if(!confirm('Substituir os dados atuais pelo backup?')) return; S = {urges:[], journal:[], pledges:{}, ...d}; save(); toast('Backup restaurado'); go('home'); } catch(e){ toast('Arquivo inválido'); } };
+  r.onload = () => { try { const d = JSON.parse(r.result); if(!d.habits) throw 0; if(!confirm('Substituir os dados atuais pelo backup?')) return; S = {urges:[], journal:[], pledges:{}, ...d}; ensureAff(); save(); syncReminders(); toast('Backup restaurado'); go('home'); } catch(e){ toast('Arquivo inválido'); } };
   r.readAsText(f); inp.value='';
 }
-function wipe(){ if(!confirm('Apagar TODOS os dados do app? Isso não pode ser desfeito.')) return; S={habits:[],urges:[],journal:[],pledges:{},activeId:null}; save(); go('home'); }
+function wipe(){ if(!confirm('Apagar TODOS os dados do app? Isso não pode ser desfeito.')) return; S={habits:[],urges:[],journal:[],pledges:{},activeId:null}; ensureAff(); save(); syncReminders(); go('home'); }
 
 /* ================== Início ================== */
 render();
+syncWidget();
+if (S.aff.reminders.count) syncReminders();
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
 </body>

@@ -2,12 +2,12 @@ name: Livre
 options:
   bundleIdPrefix: com.livreapp
   deploymentTarget:
-    iOS: "16.0"
+    iOS: "17.0"
   createIntermediateGroups: true
 settings:
   base:
-    MARKETING_VERSION: "1.0"
-    CURRENT_PROJECT_VERSION: "1"
+    MARKETING_VERSION: "1.1"
+    CURRENT_PROJECT_VERSION: "2"
     SWIFT_VERSION: "5.0"
     DEVELOPMENT_TEAM: ""
     CODE_SIGN_STYLE: Automatic
@@ -21,10 +21,17 @@ targets:
       - path: Livre/web
         type: folder
         buildPhase: resources
+    dependencies:
+      - target: LivreWidget
+        embed: true
     preBuildScripts:
       - name: Copiar app web
         script: "\"${SRCROOT}/sync-web.sh\""
         basedOnDependencyAnalysis: false
+    entitlements:
+      path: Livre/Livre.entitlements
+      properties:
+        com.apple.security.application-groups: [group.com.livreapp.livre]
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.livreapp.livre
@@ -34,3 +41,26 @@ targets:
         TARGETED_DEVICE_FAMILY: "1"
         ENABLE_USER_SCRIPT_SANDBOXING: NO
         GENERATE_INFOPLIST_FILE: NO
+  LivreWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: LivreWidget
+    entitlements:
+      path: LivreWidget/LivreWidget.entitlements
+      properties:
+        com.apple.security.application-groups: [group.com.livreapp.livre]
+    info:
+      path: LivreWidget/Info.plist
+      properties:
+        CFBundleDisplayName: Livre
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.livreapp.livre.widget
+        PRODUCT_NAME: LivreWidget
+        TARGETED_DEVICE_FAMILY: "1"
+        SKIP_INSTALL: YES

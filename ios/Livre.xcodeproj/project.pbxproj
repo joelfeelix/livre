@@ -7,13 +7,44 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49A69E6E27CE1CC5990EAC33 /* LivreWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8F6B741F1F5AD01412CD88 /* LivreWidget.swift */; };
 		5D7E0632BAA26D14A33C061F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC779F7BB398999A69434F6F /* Assets.xcassets */; };
 		7B0833B959DEDF4C1DDF9FB2 /* LivreApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDBCC8360A01FCB151FCB46 /* LivreApp.swift */; };
 		ED4B30DB38FAFFB566812799 /* web in Resources */ = {isa = PBXBuildFile; fileRef = F1847FB8C0E5AE7A2B003AF0 /* web */; };
+		F96A0246139E746FE6031B34 /* LivreWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3F94E21249C0F5F3086F333E /* LivreWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		009F801A396262824571005D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 60621DA13818886F96AF1901 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 90509B7CDE08C632C98455CD;
+			remoteInfo = LivreWidget;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C6613B49BBF99C2C244EC493 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				F96A0246139E746FE6031B34 /* LivreWidget.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		0981F08CBFF4E5DEAC77BED1 /* LivreWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LivreWidget.entitlements; sourceTree = "<group>"; };
 		1CDBCC8360A01FCB151FCB46 /* LivreApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivreApp.swift; sourceTree = "<group>"; };
+		1F8F6B741F1F5AD01412CD88 /* LivreWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivreWidget.swift; sourceTree = "<group>"; };
+		3F94E21249C0F5F3086F333E /* LivreWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = LivreWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		A3E3C9C94F3C3A449986716D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		BD5F77F11CD9B7EE6062B41D /* Livre.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Livre.entitlements; sourceTree = "<group>"; };
 		C5842D6BADC1B2DF0F312879 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DC779F7BB398999A69434F6F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EF75C4142BE24D31C16226A3 /* Livre.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Livre.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -21,11 +52,22 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		60CD4E14108B3F6350AA5A19 /* LivreWidget */ = {
+			isa = PBXGroup;
+			children = (
+				A3E3C9C94F3C3A449986716D /* Info.plist */,
+				0981F08CBFF4E5DEAC77BED1 /* LivreWidget.entitlements */,
+				1F8F6B741F1F5AD01412CD88 /* LivreWidget.swift */,
+			);
+			path = LivreWidget;
+			sourceTree = "<group>";
+		};
 		AB88D5C59F2EE214AB960D44 /* Livre */ = {
 			isa = PBXGroup;
 			children = (
 				DC779F7BB398999A69434F6F /* Assets.xcassets */,
 				C5842D6BADC1B2DF0F312879 /* Info.plist */,
+				BD5F77F11CD9B7EE6062B41D /* Livre.entitlements */,
 				1CDBCC8360A01FCB151FCB46 /* LivreApp.swift */,
 				F1847FB8C0E5AE7A2B003AF0 /* web */,
 			);
@@ -36,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				AB88D5C59F2EE214AB960D44 /* Livre */,
+				60CD4E14108B3F6350AA5A19 /* LivreWidget */,
 				C511F19AD102F568620AB881 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -44,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				EF75C4142BE24D31C16226A3 /* Livre.app */,
+				3F94E21249C0F5F3086F333E /* LivreWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -51,6 +95,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		90509B7CDE08C632C98455CD /* LivreWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 52A63DE9CB7C256D9FCCA26C /* Build configuration list for PBXNativeTarget "LivreWidget" */;
+			buildPhases = (
+				265927A56888B980AD01FCE0 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LivreWidget;
+			packageProductDependencies = (
+			);
+			productName = LivreWidget;
+			productReference = 3F94E21249C0F5F3086F333E /* LivreWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		A083EE5BEFB42F8965B189AD /* Livre */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E6B9F2C324B65E5E44DC77D9 /* Build configuration list for PBXNativeTarget "Livre" */;
@@ -58,10 +119,12 @@
 				606DB1E5220F4CA8CDE2A5E4 /* Copiar app web */,
 				D3713C3A427ADE58BDECA35A /* Sources */,
 				F42E4BCA1B277E8085B76A3F /* Resources */,
+				C6613B49BBF99C2C244EC493 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				9FBBB70CB7D03DA98ED05538 /* PBXTargetDependency */,
 			);
 			name = Livre;
 			packageProductDependencies = (
@@ -79,6 +142,10 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					90509B7CDE08C632C98455CD = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
 					A083EE5BEFB42F8965B189AD = {
 						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
@@ -100,6 +167,7 @@
 			projectRoot = "";
 			targets = (
 				A083EE5BEFB42F8965B189AD /* Livre */,
+				90509B7CDE08C632C98455CD /* LivreWidget */,
 			);
 		};
 /* End PBXProject section */
@@ -139,6 +207,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		265927A56888B980AD01FCE0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49A69E6E27CE1CC5990EAC33 /* LivreWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D3713C3A427ADE58BDECA35A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -149,11 +225,20 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		9FBBB70CB7D03DA98ED05538 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 90509B7CDE08C632C98455CD /* LivreWidget */;
+			targetProxy = 009F801A396262824571005D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		39D4FE6D034F992AB5952173 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Livre/Livre.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -169,10 +254,47 @@
 			};
 			name = Debug;
 		};
+		62D293C9AE875A9B4606D477 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = LivreWidget/LivreWidget.entitlements;
+				INFOPLIST_FILE = LivreWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.livreapp.livre.widget;
+				PRODUCT_NAME = LivreWidget;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		7036D83A70C69FDE6B83CD3A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = LivreWidget/LivreWidget.entitlements;
+				INFOPLIST_FILE = LivreWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.livreapp.livre.widget;
+				PRODUCT_NAME = LivreWidget;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
 		743FE9D92D63A4586AFE8280 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Livre/Livre.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -223,7 +345,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -236,8 +358,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MARKETING_VERSION = 1.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -283,7 +405,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -302,8 +424,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MARKETING_VERSION = 1.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -323,6 +445,15 @@
 			buildConfigurations = (
 				D1504A8D59CD9058C64DD51B /* Debug */,
 				97DFD578CDFED04509D1FD8E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		52A63DE9CB7C256D9FCCA26C /* Build configuration list for PBXNativeTarget "LivreWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7036D83A70C69FDE6B83CD3A /* Debug */,
+				62D293C9AE875A9B4606D477 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
