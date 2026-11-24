@@ -93,6 +93,7 @@ final class WebViewController: UIViewController, WKNavigationDelegate, WKUIDeleg
         ucc.add(LeakAvoider(self), name: "reminders")
         ucc.add(LeakAvoider(self), name: "widget")
         ucc.add(LeakAvoider(self), name: "photo")
+        ucc.add(LeakAvoider(self), name: "ai")
         let saved = (try? String(contentsOf: storeURL, encoding: .utf8)) ?? "null"
         let js = "window.__LIVRE_NATIVE = \(saved.isEmpty ? "null" : saved); window.__LIVRE_PHOTOS = \(savedPhotosJSON());"
         ucc.addUserScript(WKUserScript(source: js, injectionTime: .atDocumentStart, forMainFrameOnly: true))
@@ -126,6 +127,9 @@ final class WebViewController: UIViewController, WKNavigationDelegate, WKUIDeleg
         case "reminders":
             guard let body = message.body as? [String: Any] else { return }
             scheduleReminders(body)
+        case "ai":
+            guard let body = message.body as? [String: Any] else { return }
+            handleAI(body)
         case "photo":
             guard let body = message.body as? [String: Any], let id = body["id"] as? String,
                   id.range(of: "^[A-Za-z0-9-]+$", options: .regularExpression) != nil else { return }
@@ -147,6 +151,45 @@ final class WebViewController: UIViewController, WKNavigationDelegate, WKUIDeleg
             }
         default: break
         }
+    }
+
+    // MARK: IA da Apple (Coach)
+    private var aiCoach: AnyObject?
+
+    private func js(_ code: String) { webView.evaluateJavaScript(code) }
+    private func jsonString(_ s: String) -> String {
+        (try? String(data: JSONEncoder().encode(s), encoding: .utf8)) ?? "\"\""
+    }
+
+    private func handleAI(_ body: [String: Any]) {
+        let type = body["type"] as? String ?? ""
+        #if canImport(FoundationModels)
+        if #available(iOS 26.0, *) {
+            let coach: AICoach
+            if let c = aiCoach as? AICoach { coach = c } else { coach = AICoach(); aiCoach = coach }
+            switch type {
+            case "status":
+                js("window.aiStatus && aiStatus(\(jsonString(coach.status())))")
+            case "start":
+                coach.start(context: body["context"] as? String ?? "")
+            case "reset":
+                coach.reset()
+            case "send":
+                guard let id = body["id"] as? String, let prompt = body["prompt"] as? String else { return }
+                let idJS = jsonString(id)
+                coach.send(prompt: prompt, onText: { [weak self] text in
+                    guard let self else { return }
+                    self.js("window.aiChunk && aiChunk(\(idJS), \(self.jsonString(text)))")
+                }, done: { [weak self] err in
+                    guard let self else { return }
+                    self.js("window.aiDone && aiDone(\(idJS), \(err.map { self.jsonString($0) } ?? "null"))")
+                })
+            default: break
+            }
+            return
+        }
+        #endif
+        if type == "status" { js("window.aiStatus && aiStatus(\"unsupportedOS\")") }
     }
 
     // MARK: Lembretes de afirmações

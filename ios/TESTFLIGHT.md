@@ -3,6 +3,11 @@
 O app iOS tem: contador, afirmações, mini diário, SOS e técnicas; **widget** (contador e afirmação do dia,
 na tela de início e na tela bloqueada) e **lembretes** de afirmações por notificação.
 
+**Coach com IA:** usa a IA da Apple (Apple Intelligence) rodando no próprio iPhone, de graça e sem enviar
+nenhuma conversa para fora do aparelho. Só aparece em iPhones compatíveis (iPhone 15 Pro ou mais novo, iOS 26+)
+com a Apple Intelligence ativada. Nos outros aparelhos o resto do app funciona normalmente e o coach fica escondido.
+Na tela de privacidade do App Store Connect dá para marcar que o app **não coleta dados**.
+
 O app iOS carrega o app web (`index.html`) de dentro do próprio aplicativo, então funciona sem internet.
 Os dados ficam salvos no aparelho, com uma cópia de segurança em Documentos/livre.json.
 
