@@ -1,0 +1,4 @@
+Livre.xcodeproj/xcuserdata/
+*.xcuserstate
+build/
+DerivedData/

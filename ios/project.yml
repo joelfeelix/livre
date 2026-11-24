@@ -1,0 +1,36 @@
+name: Livre
+options:
+  bundleIdPrefix: com.livreapp
+  deploymentTarget:
+    iOS: "16.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    SWIFT_VERSION: "5.0"
+    DEVELOPMENT_TEAM: ""
+    CODE_SIGN_STYLE: Automatic
+targets:
+  Livre:
+    type: application
+    platform: iOS
+    sources:
+      - path: Livre
+        excludes: ["web/**"]
+      - path: Livre/web
+        type: folder
+        buildPhase: resources
+    preBuildScripts:
+      - name: Copiar app web
+        script: "\"${SRCROOT}/sync-web.sh\""
+        basedOnDependencyAnalysis: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.livreapp.livre
+        PRODUCT_NAME: Livre
+        INFOPLIST_FILE: Livre/Info.plist
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        TARGETED_DEVICE_FAMILY: "1"
+        ENABLE_USER_SCRIPT_SANDBOXING: NO
+        GENERATE_INFOPLIST_FILE: NO
