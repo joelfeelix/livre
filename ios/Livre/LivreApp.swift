@@ -59,6 +59,23 @@ final class WebViewController: UIViewController, WKNavigationDelegate, WKUIDeleg
         FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("livre.json")
     }
 
+    /// Cópia das fotos do Mapa dos Sonhos em Documentos/photos.
+    private var photosDir: URL {
+        FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("photos")
+    }
+
+    private func savedPhotosJSON() -> String {
+        let files = (try? FileManager.default.contentsOfDirectory(at: photosDir, includingPropertiesForKeys: nil)) ?? []
+        var dict: [String: String] = [:]
+        for f in files where f.pathExtension == "jpg" {
+            if let d = try? Data(contentsOf: f) {
+                dict[f.deletingPathExtension().lastPathComponent] = "data:image/jpeg;base64," + d.base64EncodedString()
+            }
+        }
+        guard let json = try? JSONSerialization.data(withJSONObject: dict) else { return "{}" }
+        return String(data: json, encoding: .utf8) ?? "{}"
+    }
+
     override var preferredStatusBarStyle: UIStatusBarStyle { .lightContent }
 
     override func viewDidLoad() {
@@ -75,8 +92,9 @@ final class WebViewController: UIViewController, WKNavigationDelegate, WKUIDeleg
         ucc.add(LeakAvoider(self), name: "share")
         ucc.add(LeakAvoider(self), name: "reminders")
         ucc.add(LeakAvoider(self), name: "widget")
+        ucc.add(LeakAvoider(self), name: "photo")
         let saved = (try? String(contentsOf: storeURL, encoding: .utf8)) ?? "null"
-        let js = "window.__LIVRE_NATIVE = \(saved.isEmpty ? "null" : saved);"
+        let js = "window.__LIVRE_NATIVE = \(saved.isEmpty ? "null" : saved); window.__LIVRE_PHOTOS = \(savedPhotosJSON());"
         ucc.addUserScript(WKUserScript(source: js, injectionTime: .atDocumentStart, forMainFrameOnly: true))
         config.userContentController = ucc
 
@@ -108,6 +126,17 @@ final class WebViewController: UIViewController, WKNavigationDelegate, WKUIDeleg
         case "reminders":
             guard let body = message.body as? [String: Any] else { return }
             scheduleReminders(body)
+        case "photo":
+            guard let body = message.body as? [String: Any], let id = body["id"] as? String,
+                  id.range(of: "^[A-Za-z0-9-]+$", options: .regularExpression) != nil else { return }
+            let file = photosDir.appendingPathComponent(id + ".jpg")
+            if let dataURL = body["data"] as? String, let comma = dataURL.firstIndex(of: ","),
+               let data = Data(base64Encoded: String(dataURL[dataURL.index(after: comma)...])) {
+                try? FileManager.default.createDirectory(at: photosDir, withIntermediateDirectories: true)
+                try? data.write(to: file, options: .atomic)
+            } else {
+                try? FileManager.default.removeItem(at: file)
+            }
         case "widget":
             guard let body = message.body as? [String: Any],
                   let data = try? JSONSerialization.data(withJSONObject: body) else { return }

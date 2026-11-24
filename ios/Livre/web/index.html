@@ -149,6 +149,43 @@ input[type=range]{padding:0;background:none;border:0;accent-color:var(--warn)}
 .aff-actions button:active{transform:scale(.92)}
 .aff-mini{border:0;cursor:pointer;padding:18px}
 .aff-mini-t{font-family:"New York","Iowan Old Style",Georgia,serif;font-size:21px;font-weight:600;color:#fff;margin:8px 0 10px;line-height:1.3}
+.aff-ref{display:block;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:14px;font-weight:600;letter-spacing:.04em;color:rgba(255,255,255,.7);margin-top:14px;text-transform:uppercase}
+.aff-mini-t .aff-ref{font-size:11px;margin-top:6px}
+/* sonhos */
+.dream-hero{background:linear-gradient(165deg,#3d3366,#141e30);border:0}
+.saved-pill{margin-top:12px;background:rgba(79,209,165,.18);color:#bff3e0;border-radius:12px;padding:10px 12px;font-size:14px}
+.people{display:flex;gap:12px;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:none}
+.people::-webkit-scrollbar{display:none}
+.person{flex:none;width:78px;text-align:center}
+.person .av{width:72px;height:72px;margin:0 auto;border-radius:50%;background:var(--card2) center/cover;border:3px solid var(--acc);display:grid;place-items:center;font-size:26px;font-weight:700;color:var(--acc)}
+.person .av.add{border:2px dashed var(--line);color:var(--tx2)}
+.person .nm{font-size:12px;color:var(--tx2);margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.dcard{border-radius:18px;overflow:hidden;padding:0;text-align:left;border:1px solid var(--line)}
+.dcover{position:relative;aspect-ratio:4/5;background-size:cover;background-position:center}
+.demo{position:absolute;top:18%;left:0;right:0;text-align:center;font-size:48px}
+.dshade{position:absolute;inset:0;background:linear-gradient(transparent 35%,rgba(0,0,0,.82));display:flex;flex-direction:column;justify-content:flex-end;padding:12px;color:#fff}
+.dtitle{font-weight:700;font-size:15px;line-height:1.25}
+.dsub{font-size:11.5px;color:rgba(255,255,255,.75);margin-top:3px}
+.dbadge{align-self:flex-start;background:var(--acc);color:#06221a;font-size:11px;font-weight:800;border-radius:999px;padding:3px 8px;margin-bottom:auto}
+.dbar{height:5px;background:rgba(255,255,255,.25);border-radius:3px;margin-top:6px;overflow:hidden}
+.dbar div{height:100%;background:var(--acc);border-radius:3px}
+.dbar.big{height:9px;margin:10px 0 6px;background:var(--bg2)}
+.dview-img{height:240px;border-radius:18px;background:center/cover;margin-bottom:14px}
+.whycard{position:relative;height:190px;border-radius:var(--r);overflow:hidden;background-size:cover;background-position:center;margin-bottom:12px;cursor:pointer}
+.ph-pick{display:grid;place-items:center;height:170px;border-radius:16px;border:2px dashed var(--line);background:var(--card) center/cover;color:var(--tx2);text-align:center;font-size:13px;margin:12px 0 0;cursor:pointer}
+.ph-pick span{font-size:13px;line-height:1.6}
+.ph-pick.has{border-style:solid;border-color:var(--acc)}
+.ph-pick.has span{background:rgba(0,0,0,.55);color:#fff;padding:6px 10px;border-radius:10px}
+.ph-pick.round{width:130px;height:130px;border-radius:50%;margin:12px auto 0}
+.step{display:flex;align-items:center;gap:10px;padding:11px 12px;background:var(--card);border:1px solid var(--line);border-radius:12px;margin-top:6px;cursor:pointer}
+.step .ck{width:22px;height:22px;border-radius:7px;border:2px solid var(--line);display:grid;place-items:center;font-size:13px;flex:none}
+.step span:nth-child(2){flex:1}
+.step.done .ck{background:var(--acc);border-color:var(--acc);color:#06221a}
+.step.done span:nth-child(2){text-decoration:line-through;color:var(--tx3)}
+.photos{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.photos div{aspect-ratio:1;border-radius:14px;background:center/cover;position:relative;overflow:hidden}
+.photos div span{position:absolute;left:0;right:0;bottom:0;padding:6px 8px;font-size:12px;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.7))}
 /* mini diário */
 .mini-q{font-weight:700;margin:4px 0 10px}
 .mini-a{background:var(--bg2);border-radius:12px;padding:10px 12px;white-space:pre-wrap}
@@ -191,10 +228,86 @@ const QUOTES = [
   'Você já passou por 100% dos seus piores dias até aqui.',
 ];
 const AFF_CATS = [
+  {k:'biblia', t:'Bíblia', e:'📖'},
+  {k:'proposito', t:'Propósito e sonhos', e:'🌠'}, {k:'prosperidade', t:'Prosperidade', e:'💰'},
+  {k:'trabalho', t:'Trabalho', e:'💼'}, {k:'relacoes', t:'Relacionamentos', e:'💞'},
+  {k:'familia', t:'Família', e:'🏡'}, {k:'saude', t:'Saúde', e:'🍎'}, {k:'confianca', t:'Confiança', e:'🦁'},
   {k:'livre', t:'Liberdade', e:'🕊️'}, {k:'forca', t:'Força', e:'💪'}, {k:'amor', t:'Amor-próprio', e:'💚'},
   {k:'calma', t:'Calma', e:'🌊'}, {k:'recomeco', t:'Recomeço', e:'🌅'}, {k:'gratidao', t:'Gratidão', e:'🙏'},
 ];
 const AFFS = {
+  biblia: [
+    'Se, pois, o Filho vos libertar, verdadeiramente sereis livres. — João 8:36',
+    'Posso todas as coisas naquele que me fortalece. — Filipenses 4:13',
+    'Não veio sobre vós tentação, senão humana; mas fiel é Deus, que vos não deixará tentar acima do que podeis; antes, com a tentação dará também o escape. — 1 Coríntios 10:13',
+    'Não temas, porque eu sou contigo; não te assombres, porque eu sou teu Deus; eu te fortaleço e te ajudo. — Isaías 41:10',
+    'Se alguém está em Cristo, nova criatura é: as coisas velhas já passaram; eis que tudo se fez novo. — 2 Coríntios 5:17',
+    'As misericórdias do Senhor não têm fim; renovam-se cada manhã. — Lamentações 3:22-23',
+    'Vinde a mim, todos os que estais cansados e oprimidos, e eu vos aliviarei. — Mateus 11:28',
+    'Sujeitai-vos, pois, a Deus; resisti ao diabo, e ele fugirá de vós. — Tiago 4:7',
+    'Deus não nos deu o espírito de temor, mas de fortaleza, de amor e de moderação. — 2 Timóteo 1:7',
+    'O Senhor é o meu pastor; nada me faltará. — Salmos 23:1',
+    'Deus é o nosso refúgio e fortaleza, socorro bem presente na angústia. — Salmos 46:1',
+    'Lançando sobre ele toda a vossa ansiedade, porque ele tem cuidado de vós. — 1 Pedro 5:7',
+    'Os que esperam no Senhor renovarão as suas forças; subirão com asas como águias. — Isaías 40:31',
+    'Esquecendo-me das coisas que atrás ficam, e avançando para as que estão diante de mim, prossigo para o alvo. — Filipenses 3:13-14',
+    'Sete vezes cairá o justo, e se levantará. — Provérbios 24:16',
+    'Vigiai e orai, para que não entreis em tentação. — Mateus 26:41',
+    'Para a liberdade Cristo nos libertou; permanecei, pois, firmes. — Gálatas 5:1',
+    'Todas as coisas me são lícitas, mas eu não me deixarei dominar por nenhuma. — 1 Coríntios 6:12',
+    'Não vos conformeis com este mundo, mas transformai-vos pela renovação do vosso entendimento. — Romanos 12:2',
+    'A paz de Deus, que excede todo o entendimento, guardará o vosso coração. — Filipenses 4:7',
+    'Eu sei os planos que tenho para vós, diz o Senhor; planos de paz, para vos dar esperança e um futuro. — Jeremias 29:11',
+    'Entrega o teu caminho ao Senhor; confia nele, e ele tudo fará. — Salmos 37:5',
+    'Deleita-te no Senhor, e ele satisfará os desejos do teu coração. — Salmos 37:4',
+    'O choro pode durar uma noite, mas a alegria vem pela manhã. — Salmos 30:5',
+    'Sê forte e corajoso; não temas, porque o Senhor teu Deus é contigo por onde quer que andares. — Josué 1:9',
+    'A minha graça te basta, porque o meu poder se aperfeiçoa na fraqueza. — 2 Coríntios 12:9',
+    'Aquele que começou a boa obra em vós há de completá-la. — Filipenses 1:6',
+    'O Senhor está perto dos que têm o coração quebrantado. — Salmos 34:18',
+  ],
+  proposito: [
+    'Eu tenho um propósito, e cada dia me aproxima dele.','Meus sonhos são possíveis, e eu trabalho por eles.','Eu sou o autor da minha história.',
+    'Eu enxergo o futuro que estou construindo.','Pequenas ações diárias realizam grandes sonhos.','Eu nasci para crescer e florescer.',
+    'Eu sigo em frente mesmo quando o caminho é longo.','A minha vida tem significado.','Eu mereço viver os meus sonhos.',
+    'Eu transformo planos em ação.','O melhor da minha vida ainda está por vir.','Eu acordo com motivação para construir o meu futuro.',
+  ],
+  prosperidade: [
+    'Eu sou próspero e administro bem o que recebo.','O dinheiro chega até mim de formas honestas e abundantes.','Eu tomo decisões financeiras sábias.',
+    'Eu mereço abundância em todas as áreas da minha vida.','Eu sou grato pelo que tenho e abro espaço para mais.','Eu construo riqueza com disciplina e paciência.',
+    'Cada real que economizo é um passo para a minha liberdade.','Eu atraio boas oportunidades.','Eu sou generoso, e a generosidade volta para mim.',
+    'Eu tenho uma relação saudável com o dinheiro.','Meu trabalho gera valor e prosperidade.','Eu planto hoje o que vou colher amanhã.',
+  ],
+  trabalho: [
+    'Eu sou competente no que faço.','Eu faço o meu trabalho com excelência.','Eu sou capaz de aprender qualquer coisa.',
+    'Meu esforço é reconhecido e recompensado.','Eu encaro desafios no trabalho como oportunidades.','Eu tenho foco e termino o que começo.',
+    'Eu contribuo com ideias valiosas.','Eu cresço profissionalmente a cada dia.','Eu sou confiável, e as pessoas contam comigo.',
+    'Eu escolho ser produtivo hoje.','Meus talentos abrem portas.','Eu lidero pelo exemplo.',
+  ],
+  relacoes: [
+    'Eu atraio relacionamentos saudáveis e verdadeiros.','Eu amo e sou amado.','Eu me comunico com calma e clareza.',
+    'Eu escuto com atenção e falo com respeito.','Eu mereço pessoas que me valorizam.','Eu sei colocar limites com amor.',
+    'Eu perdoo e me liberto do peso do passado.','Minhas amizades me fortalecem.','Eu ofereço o melhor de mim a quem amo.',
+    'Eu sou paciente com as pessoas e comigo.','Eu construo pontes, não muros.','O amor guia as minhas atitudes.',
+  ],
+  familia: [
+    'Minha família é a minha base.','Eu sou presente para quem eu amo.','Eu construo um lar de paz.',
+    'Eu sou um exemplo para a minha família.','Eu valorizo cada momento com os meus.','O amor da minha família me sustenta.',
+    'Eu cuido da minha família com carinho e responsabilidade.','Na minha casa há respeito, alegria e união.','Eu deixo um legado de amor.',
+    'Eu tenho tempo para quem importa.','Minha família se orgulha de mim.','Juntos, nós somos mais fortes.',
+  ],
+  saude: [
+    'Eu escolho alimentos que nutrem o meu corpo.','Meu corpo é forte e saudável.','Eu durmo bem e acordo renovado.',
+    'Eu gosto de movimentar o meu corpo.','Eu bebo água e cuido de mim.','A cada dia minha saúde melhora.',
+    'Eu respeito os limites do meu corpo.','Eu tenho energia para viver bem.','Minha mente e meu corpo estão em equilíbrio.',
+    'Eu cuido da minha saúde mental com o mesmo carinho.','Eu sou grato pelo meu corpo.','Saúde é a minha prioridade.',
+  ],
+  confianca: [
+    'Eu confio em mim.','Eu sou capaz.','Eu acredito no meu potencial.',
+    'Eu mereço ocupar o meu espaço.','Minha voz importa.','Eu enfrento meus medos com coragem.',
+    'Eu tomo boas decisões.','Eu não preciso da aprovação de ninguém para ser quem sou.','Eu sou único, e isso é a minha força.',
+    'Eu me sinto seguro sendo eu mesmo.','Eu sou suficiente exatamente agora.','Eu vou conseguir.',
+  ],
   livre: [
     'Eu sou livre. Nenhum vício decide por mim.','Eu escolho a minha liberdade, um dia de cada vez.','Eu sou maior do que qualquer vontade passageira.',
     'Meu corpo está se curando a cada dia sem o vício.','Eu não preciso disso para ser feliz.','Cada dia limpo me deixa mais forte.',
@@ -259,7 +372,12 @@ function load(){
 }
 const NATIVE = window.webkit && window.webkit.messageHandlers;
 let S = load();
-function ensureAff(){ S.aff = Object.assign({cats: AFF_CATS.map(c=>c.k), favs: [], custom: [], mode: 'all', reminders: {count: 0, start: 8, end: 21}, read: {}}, S.aff || {}); }
+function ensureAff(){
+  S.aff = Object.assign({cats: AFF_CATS.map(c=>c.k), favs: [], custom: [], mode: 'all', reminders: {count: 0, start: 8, end: 21}, read: {}, v: 2}, S.aff || {});
+  // quem já usava antes ganha as categorias novas ligadas
+  if ((S.aff.v||1) < 2){ AFF_CATS.forEach(c => { if (!S.aff.cats.includes(c.k)) S.aff.cats.push(c.k); }); S.aff.v = 2; }
+  S.dreams = S.dreams || []; S.people = S.people || [];
+}
 ensureAff();
 function save(){
   const json = JSON.stringify(S);
@@ -274,7 +392,7 @@ const active = () => S.habits.find(h => h.id === S.activeId) || S.habits[0];
 const todayKey = (d=new Date()) => d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 const fmtDate = ms => new Date(ms).toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'});
 const fmtDT = ms => new Date(ms).toLocaleString('pt-BR',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
-const money = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits: v>=1000?0:2});
+const money = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits: v>=100?0:2});
 function dur(ms){
   const d = Math.floor(ms/DAY);
   if (d >= 365) { const y = Math.floor(d/365), r = d%365; return y+(y>1?' anos':' ano')+(r?` e ${r} d`:''); }
@@ -290,12 +408,12 @@ function vibrate(p){ try{ navigator.vibrate && navigator.vibrate(p); }catch(e){}
 
 /* ================== Navegação ================== */
 let tab = 'home';
-const TABS = [['home','🏠','Início'],['aff','✨','Afirmações'],['sos','🆘','SOS'],['tech','📚','Técnicas'],['diary','📓','Diário'],['stats','📊','Progresso']];
+const TABS = [['home','🏠','Início'],['dreams','🌠','Sonhos'],['sos','🆘','SOS'],['aff','✨','Afirmações'],['diary','📓','Diário'],['stats','📊','Progresso']];
 function renderNav(){
   $('#nav').innerHTML = TABS.map(([k,e,t]) => `<button class="${tab===k?'on':''} ${k==='sos'?'sos':''}" onclick="go('${k}')"><span class="e">${e}</span>${t}</button>`).join('');
 }
 function go(t){ tab=t; stopAll(); render(); window.scrollTo(0,0); }
-function render(){ renderNav(); document.body.classList.toggle('aff-mode', tab==='aff'); ({home:Home, aff:Aff, tech:Tech, sos:Sos, diary:Diary, stats:Stats})[tab](); }
+function render(){ renderNav(); document.body.classList.toggle('aff-mode', tab==='aff'); ({home:Home, dreams:Dreams, aff:Aff, tech:Tech, sos:Sos, diary:Diary, stats:Stats})[tab](); }
 
 /* ================== Início ================== */
 function Home(){
@@ -356,6 +474,8 @@ function Home(){
       <button class="btn bad" onclick="relapseForm()">↺ Tive uma recaída</button>
     </div>
     <button class="btn pri" style="margin-bottom:12px" onclick="go('sos')">🆘 Estou com vontade agora</button>
+
+    ${whyCard()}
 
     ${dailyAffCard()}
 
@@ -532,10 +652,12 @@ function Sos(){
     ${tool('🫁','Respiração guiada','Respiração quadrada 4-4-4-4. Acalma o corpo em 2 minutos.','breathe()')}
     ${tool('⏱️','Surfar a fissura (15 min)','Observe a vontade subir e descer, sem obedecer.','surf()')}
     ${tool('🖐️','Técnica 5-4-3-2-1','Traga sua mente de volta para o presente.','ground()')}
-    ${tool('💚','Meus porquês','Relembre por que você começou.','whys()')}
+    ${tool('💚','Meus porquês','Seus motivos, sonhos e as pessoas por quem você vence.','whys()')}
+    ${tool('📖','Palavra de força','Versículos e uma oração para este momento.','word()')}
     ${tool('🎬','Rode o filme até o fim','Imagine o que acontece 1h, 1 dia depois de ceder.','tape()')}
     ${tool('🛑','Checagem HALT','Fome, Raiva, Solidão ou Cansaço?','halt()')}
     ${tool('🎲','Me dê algo pra fazer','Uma distração saudável aleatória.','distract()')}
+    ${tool('📚','Todas as técnicas','15 técnicas explicadas para contornar a vontade.',"go('tech')")}
     <div class="card crisis">
       <b>Precisa conversar com alguém agora?</b>
       <p class="small muted" style="margin:6px 0 0">CVV — Centro de Valorização da Vida, 24h, gratuito: <a href="tel:188">ligue 188</a> ou <a href="https://cvv.org.br" target="_blank" rel="noopener">cvv.org.br</a>.<br>Para álcool e drogas, procure o <b>CAPS AD</b> da sua cidade (atendimento gratuito pelo SUS). Em emergência médica, <a href="tel:192">192 (SAMU)</a>.</p>
@@ -624,12 +746,23 @@ function ground(){
 
 function whys(){
   const r = window._reasons||[];
+  const pics = [...S.people.map(p=>({img:PH[p.photo], t:p.name})), ...S.dreams.filter(d=>!d.achieved).map(d=>({img:PH[d.photo], t:d.title}))].filter(x=>x.img);
   sheet(`<h2>💚 Meus porquês</h2>
-    ${r.length ? r.map(x=>`<div class="reason" style="font-size:17px">${esc(x)}</div>`).join('') : `<p class="muted">Você ainda não escreveu seus motivos. Vá em <b>Início → Meus porquês</b> e escreva pelo menos 3. Eles são sua âncora nos momentos difíceis.</p>`}
+    ${pics.length ? `<div class="photos">${pics.slice(0,6).map(x=>`<div style="background-image:url(${x.img})"><span>${esc(x.t)}</span></div>`).join('')}</div>` : ''}
+    ${r.length ? r.map(x=>`<div class="reason" style="font-size:17px">${esc(x)}</div>`).join('') : (pics.length ? '' : `<p class="muted">Você ainda não escreveu seus motivos. Vá em <b>Início → Meus porquês</b> e escreva pelo menos 3, e monte o seu <b>Mapa dos Sonhos</b> com fotos. Eles são sua âncora nos momentos difíceis.</p>`)}
     ${active()?`<p class="muted" style="margin-top:14px">E lembre: você já está há <b>${dur(streak(active()))}</b> livre. Vale a pena jogar isso fora por alguns minutos?</p>`:''}
     <button class="btn" style="margin-top:14px" onclick="closeSheet()">Fechar</button>`);
 }
 
+const SOS_VERSES = [0,2,3,6,7,10,11,12,16,25,27]; // índices em AFFS.biblia: tentação, força e consolo
+function word(){
+  const vs = shuffled(SOS_VERSES).slice(0,3).map(i => AFFS.biblia[i]);
+  sheet(`<h2>📖 Palavra de força</h2>
+    ${vs.map(v => { const i = v.lastIndexOf(' — '); return `<div class="card" style="margin-top:10px"><div class="aff-mini-t" style="font-size:18px;margin:0">${esc(v.slice(0,i))}</div><div class="tiny" style="margin-top:6px">${esc(v.slice(i+3))}</div></div>`; }).join('')}
+    <label>🙏 Uma oração para agora</label>
+    <div class="card"><p class="quote" style="text-align:left;padding:0">Senhor, neste momento eu sinto a vontade, mas escolho buscar a Ti. Dá-me força para atravessar esta onda, paz para o meu coração e sabedoria para fazer a escolha certa. Eu não estou sozinho. Amém.</p></div>
+    <div class="grid2"><button class="btn" onclick="word()">Outros versículos</button><button class="btn pri" onclick="closeSheet()">Amém 🙏</button></div>`);
+}
 function tape(){
   sheet(`<h2>🎬 Rode o filme até o fim</h2>
     <p class="muted">A fissura só mostra os primeiros 5 minutos do filme — a parte boa. Escreva o resto:</p>
@@ -672,11 +805,19 @@ function dailyAffCard(){
   const t = dailyAff();
   return `<div class="card aff-mini" style="background:${AFF_BG[hash(t)%AFF_BG.length]}" onclick="openAff(${JSON.stringify(t).replace(/"/g,'&quot;')})">
     <div class="tiny" style="color:rgba(255,255,255,.65)">✨ AFIRMAÇÃO DO DIA</div>
-    <div class="aff-mini-t">${esc(t)}</div>
+    <div class="aff-mini-t">${affHTML(t).replace(/font-size:\d+px/, 'font-size:inherit')}</div>
     <div class="tiny" style="color:rgba(255,255,255,.55)">Toque para ver mais</div></div>`;
+}
+// Versículos vêm no formato "texto — Referência"
+function affHTML(t){
+  const i = t.lastIndexOf(' — ');
+  const body = i > 0 ? t.slice(0, i) : t, ref = i > 0 ? t.slice(i + 3) : '';
+  const size = body.length > 140 ? 22 : body.length > 90 ? 26 : 31;
+  return `<span style="font-size:${size}px">${esc(body)}</span>${ref ? `<span class="aff-ref">${esc(ref)}</span>` : ''}`;
 }
 function affPool(){
   const a = S.aff;
+  if (a.mode==='biblia') return [...AFFS.biblia];
   if (a.mode==='favs') return [...a.favs];
   if (a.mode==='mine') return [...a.custom];
   const pool = [...a.cats.flatMap(k => AFFS[k]||[]), ...a.custom];
@@ -694,14 +835,14 @@ function buildDeck(){
 function Aff(){
   if (!affDeck) buildDeck();
   const a = S.aff;
-  const modes = [['all','✨ Todas'],['favs',`❤️ Favoritas (${a.favs.length})`],['mine',`✍️ Minhas (${a.custom.length})`]];
+  const modes = [['all','✨ Todas'],['biblia','📖 Bíblia'],['favs',`❤️ Favoritas (${a.favs.length})`],['mine',`✍️ Minhas (${a.custom.length})`]];
   const t = affDeck[affI];
   $('#app').innerHTML = `
     <div class="top"><h1>Afirmações</h1><button class="icon-btn" onclick="affSettings()" title="Ajustes">⚙️</button></div>
     <div class="chips">${modes.map(([k,l])=>`<button class="chip ${a.mode===k?'on':''}" onclick="affMode('${k}')">${l}</button>`).join('')}</div>
     ${t ? `
     <div class="affcard" id="affCard" style="background:${AFF_BG[hash(t)%AFF_BG.length]}">
-      <div class="aff-t" id="affT">${esc(t)}</div>
+      <div class="aff-t" id="affT">${affHTML(t)}</div>
       <div class="aff-hint">Toque ou deslize para cima · ${affI+1}/${affDeck.length}</div>
     </div>
     <div class="aff-actions">
@@ -726,7 +867,7 @@ function affShow(dir){
   if (!el) return Aff();
   card.style.background = AFF_BG[hash(t)%AFF_BG.length];
   el.style.animation = 'none'; el.offsetHeight; el.style.animation = `affIn${dir>0?'':'Down'} .45s ease`;
-  el.textContent = t;
+  el.innerHTML = affHTML(t);
   card.querySelector('.aff-hint').textContent = `Toque ou deslize para cima · ${affI+1}/${affDeck.length}`;
   $('#affFavB').textContent = S.aff.favs.includes(t)?'❤️':'🤍';
   const k = todayKey(); S.aff.read[k] = (S.aff.read[k]||0)+1; save();
@@ -739,7 +880,7 @@ function affFav(){
   const t = affDeck[affI], f = S.aff.favs, i = f.indexOf(t);
   if (i>=0) f.splice(i,1); else { f.push(t); vibrate(15); toast('Salva nas favoritas ❤️'); }
   save(); $('#affFavB').textContent = f.includes(t)?'❤️':'🤍';
-  document.querySelectorAll('.chip')[1].textContent = `❤️ Favoritas (${f.length})`;
+  document.querySelectorAll('.chip')[2].textContent = `❤️ Favoritas (${f.length})`;
 }
 function affSpeak(){
   try {
@@ -799,6 +940,215 @@ function syncReminders(ask){
   NATIVE.reminders.postMessage({count: r.count, start: r.start, end: Math.max(r.end, r.start), texts, ask: !!ask});
 }
 window.remindersStatus = ok => { if (!ok) toast('Ative as notificações do Livre nos Ajustes do iPhone'); else if (S.aff.reminders.count) toast('Lembretes ativados 🔔'); };
+
+/* ================== Fotos (IndexedDB + cópia no iPhone) ================== */
+const PH = {};   // id -> dataURL
+function idb(){
+  return new Promise((res, rej) => {
+    const r = indexedDB.open('livre-fotos', 1);
+    r.onupgradeneeded = () => r.result.createObjectStore('f');
+    r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error);
+  });
+}
+async function phPut(id, data){
+  PH[id] = data;
+  try { const db = await idb(); await new Promise((res, rej) => { const t = db.transaction('f','readwrite'); t.objectStore('f').put(data, id); t.oncomplete = res; t.onerror = () => rej(t.error); }); } catch(e){}
+  try { NATIVE && NATIVE.photo && NATIVE.photo.postMessage({id, data}); } catch(e){}
+}
+async function phDel(id){
+  if (!id) return; delete PH[id];
+  try { const db = await idb(); db.transaction('f','readwrite').objectStore('f').delete(id); } catch(e){}
+  try { NATIVE && NATIVE.photo && NATIVE.photo.postMessage({id, data: null}); } catch(e){}
+}
+async function phLoadAll(){
+  try {
+    const db = await idb();
+    await new Promise(res => {
+      const rq = db.transaction('f').objectStore('f').openCursor();
+      rq.onsuccess = () => { const c = rq.result; if (c){ PH[c.key] = c.value; c.continue(); } else res(); };
+      rq.onerror = () => res();
+    });
+  } catch(e){}
+  // No iPhone, recupera fotos guardadas pelo app se o navegador interno tiver perdido alguma
+  const nat = window.__LIVRE_PHOTOS || {};
+  for (const id in nat) if (!PH[id]) await phPut(id, nat[id]);
+}
+function resizeImage(file, max = 1100){
+  return new Promise((res, rej) => {
+    const fr = new FileReader();
+    fr.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        const k = Math.min(1, max / Math.max(img.width, img.height));
+        const c = document.createElement('canvas'); c.width = Math.round(img.width*k); c.height = Math.round(img.height*k);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        res(c.toDataURL('image/jpeg', 0.82));
+      };
+      img.onerror = rej; img.src = fr.result;
+    };
+    fr.onerror = rej; fr.readAsDataURL(file);
+  });
+}
+let formPhoto = null;   // foto escolhida no formulário aberto (dataURL), '' = remover
+async function pickPhoto(inp){
+  const f = inp.files[0]; if (!f) return;
+  try { formPhoto = await resizeImage(f); const p = $('#phPrev'); p.style.backgroundImage = `url(${formPhoto})`; p.classList.add('has'); p.querySelector('span').innerHTML = '📷<br>Trocar foto'; }
+  catch(e){ toast('Não consegui abrir essa foto'); }
+  inp.value = '';
+}
+function photoPicker(current, round){
+  return `<label class="ph-pick ${round?'round':''} ${current?'has':''}" id="phPrev" style="${current?`background-image:url(${current})`:''}">
+    <input type="file" accept="image/*" style="display:none" onchange="pickPhoto(this)"><span>📷<br>${current?'Trocar foto':'Adicionar foto'}</span></label>`;
+}
+
+/* ================== Mapa dos Sonhos ================== */
+const DREAM_CATS = [['familia','🏡','Família'],['saude','💪','Saúde'],['viagem','✈️','Viagem'],['carreira','💼','Carreira'],['dinheiro','💰','Finanças'],['casa','🔑','Casa'],['fe','🙏','Fé'],['estudo','🎓','Estudos'],['outro','⭐','Outro']];
+const dreamCat = k => DREAM_CATS.find(c=>c[0]===k) || DREAM_CATS[DREAM_CATS.length-1];
+// economia total de todos os vícios, somando sequências anteriores e a atual
+function savedTotal(){
+  return S.habits.reduce((sum, h) => {
+    if (!h.costPerDay) return sum;
+    const ms = (h.relapses||[]).reduce((a, r) => a + (r.streakMs||0), 0) + streak(h);
+    return sum + ms / DAY * h.costPerDay;
+  }, 0);
+}
+function dreamProgress(d){ return d.goal ? Math.min(1, savedTotal() / d.goal) : null; }
+
+function Dreams(){
+  const saved = savedTotal();
+  const people = S.people, dreams = S.dreams;
+  $('#app').innerHTML = `
+    <div class="top"><h1>Mapa dos Sonhos</h1><button class="icon-btn" onclick="dreamForm()" title="Novo sonho">＋</button></div>
+    <div class="card dream-hero">
+      <div class="aff-mini-t" style="font-size:18px">“Eu sei os planos que tenho para vós… planos de paz, para vos dar esperança e um futuro.”</div>
+      <div class="tiny" style="color:rgba(255,255,255,.6)">Jeremias 29:11</div>
+      ${saved > 0 ? `<div class="saved-pill">💰 Você já economizou <b>${money(saved)}</b> para os seus sonhos</div>` : ''}
+    </div>
+
+    <div class="sec-t">Por quem eu venço</div>
+    <div class="people">
+      ${people.map(p => `<button class="person" onclick="personForm('${p.id}')"><div class="av" style="${PH[p.photo]?`background-image:url(${PH[p.photo]})`:''}">${PH[p.photo]?'':esc((p.name||'?')[0])}</div><div class="nm">${esc(p.name)}</div></button>`).join('')}
+      <button class="person" onclick="personForm()"><div class="av add">＋</div><div class="nm">Adicionar</div></button>
+    </div>
+
+    <div class="sec-t">Meus sonhos</div>
+    ${dreams.length ? `<div class="dgrid">${dreams.map(d => {
+      const c = dreamCat(d.cat), pr = dreamProgress(d), done = (d.steps||[]).filter(s=>s.done).length, img = PH[d.photo];
+      return `<button class="dcard" onclick="dreamView('${d.id}')">
+        <div class="dcover" style="${img?`background-image:url(${img})`:`background:${AFF_BG[hash(d.title)%AFF_BG.length]}`}">
+          ${img?'':`<div class="demo">${c[1]}</div>`}
+          <div class="dshade">
+            ${d.achieved?'<div class="dbadge">✓ Realizado</div>':''}
+            <div class="dtitle">${esc(d.title)}</div>
+            ${pr!=null?`<div class="dbar"><div style="width:${pr*100}%"></div></div><div class="dsub">${Math.round(pr*100)}% de ${money(d.goal)}</div>`:''}
+            ${(d.steps||[]).length?`<div class="dsub">✓ ${done}/${d.steps.length} passos</div>`:''}
+          </div>
+        </div></button>`;
+    }).join('')}</div>` : `
+    <div class="card empty">
+      <div class="e">🌠</div>
+      <h2 style="margin:8px 0 6px">Para onde você está indo?</h2>
+      <p class="muted">Coloque aqui os sonhos que a sua liberdade vai tornar possíveis, com fotos que te inspiram.</p>
+      <div class="chips" style="flex-wrap:wrap;justify-content:center;margin-top:10px">
+        ${['Viajar com a família','Ter saúde para correr 10 km','Comprar minha casa','Abrir meu negócio','Ser um pai/mãe presente'].map(t=>`<button class="chip" onclick="dreamForm(null, '${t}')">${t}</button>`).join('')}
+      </div>
+      <button class="btn pri" style="margin-top:12px" onclick="dreamForm()">＋ Adicionar sonho</button>
+    </div>`}
+  `;
+}
+
+function dreamForm(id, presetTitle){
+  const d = id ? S.dreams.find(x=>x.id===id) : null;
+  formPhoto = null;
+  window._dreamCat = d ? d.cat : 'outro';
+  sheet(`<h2>${d?'Editar sonho':'Novo sonho'}</h2>
+    ${photoPicker(d && PH[d.photo])}
+    <label>Qual é o sonho?</label><input id="dTitle" value="${esc(d?d.title:(presetTitle||''))}" placeholder="Ex.: Viajar com a minha família">
+    <label>Área da vida</label>
+    <div class="chips" style="flex-wrap:wrap" id="dCats">${DREAM_CATS.map(c=>`<button class="chip ${window._dreamCat===c[0]?'on':''}" onclick="setDreamCat('${c[0]}',this)">${c[1]} ${c[2]}</button>`).join('')}</div>
+    <label>Por que isso importa para você?</label><textarea id="dWhy" placeholder="Como vai ser a sua vida quando isso acontecer?">${esc(d?d.why:'')}</textarea>
+    <label>Quanto custa? (opcional, R$)</label><input id="dGoal" type="number" inputmode="decimal" min="0" value="${d&&d.goal?d.goal:''}" placeholder="Ex.: 5000">
+    <p class="tiny">Se você colocar um valor, o app mostra quanto da sua economia já cobre esse sonho.</p>
+    ${d?'':`<label>Primeiros passos (um por linha, opcional)</label><textarea id="dSteps" placeholder="Pesquisar destinos&#10;Guardar R$ 200 por mês&#10;Marcar a data"></textarea>`}
+    <button class="btn pri" style="margin-top:16px" onclick="saveDream('${id||''}')">${d?'Salvar':'Adicionar ao mapa'}</button>
+    ${d?`<button class="btn ghost" style="margin-top:8px;color:var(--bad)" onclick="delDream('${d.id}')">Excluir sonho</button>`:''}`);
+}
+function setDreamCat(k, el){ window._dreamCat = k; document.querySelectorAll('#dCats .chip').forEach(b=>b.classList.toggle('on', b===el)); }
+async function saveDream(id){
+  const title = $('#dTitle').value.trim(); if (!title){ toast('Escreva o seu sonho'); return; }
+  const goal = parseFloat(String($('#dGoal').value).replace(',','.')) || 0;
+  let d = id ? S.dreams.find(x=>x.id===id) : null;
+  if (!d){
+    const steps = ($('#dSteps')?.value||'').split('\n').map(s=>s.trim()).filter(Boolean).map(t=>({t, done:false}));
+    d = {id:uid(), title, cat:window._dreamCat, why:'', goal, steps, photo:null, created:Date.now()};
+    S.dreams.unshift(d);
+  }
+  Object.assign(d, {title, cat:window._dreamCat, why:$('#dWhy').value.trim(), goal});
+  if (formPhoto){ if (d.photo) await phDel(d.photo); d.photo = 'd-'+uid(); await phPut(d.photo, formPhoto); }
+  save(); closeSheet(); go('dreams'); toast(id?'Sonho atualizado':'Sonho adicionado 🌠');
+}
+async function delDream(id){
+  if (!confirm('Excluir este sonho do seu mapa?')) return;
+  const d = S.dreams.find(x=>x.id===id); if (d) await phDel(d.photo);
+  S.dreams = S.dreams.filter(x=>x.id!==id); save(); closeSheet(); go('dreams');
+}
+function dreamView(id){
+  const d = S.dreams.find(x=>x.id===id); if (!d) return;
+  const c = dreamCat(d.cat), pr = dreamProgress(d), img = PH[d.photo];
+  sheet(`
+    ${img?`<div class="dview-img" style="background-image:url(${img})"></div>`:''}
+    <div class="tiny">${c[1]} ${c[2].toUpperCase()}</div>
+    <h2 style="margin:4px 0 8px">${esc(d.title)}</h2>
+    ${d.why?`<p class="quote" style="text-align:left;padding:0">“${esc(d.why)}”</p>`:''}
+    ${pr!=null?`<div class="card" style="margin-top:12px"><b>💰 ${money(Math.min(savedTotal(), d.goal))} de ${money(d.goal)}</b>
+      <div class="dbar big"><div style="width:${pr*100}%"></div></div>
+      <div class="tiny">${pr>=1?'Sua economia já cobre este sonho inteiro! 🎉':'Cada dia livre te aproxima deste sonho.'}</div></div>`:''}
+    <label>Passos</label>
+    <div id="dStepsL">${(d.steps||[]).map((s,i)=>`<div class="step ${s.done?'done':''}" onclick="toggleStep('${d.id}',${i})"><span class="ck">${s.done?'✓':''}</span><span>${esc(s.t)}</span><button class="tiny" onclick="event.stopPropagation();delStep('${d.id}',${i})">✕</button></div>`).join('') || '<p class="small muted" style="margin:0">Quebre o sonho em passos pequenos.</p>'}</div>
+    <div class="row" style="margin-top:8px"><input id="newStep" placeholder="Novo passo" onkeydown="if(event.key==='Enter')addStep('${d.id}')"><button class="icon-btn" style="flex:none;width:48px;height:48px" onclick="addStep('${d.id}')">＋</button></div>
+    <div class="grid2" style="margin-top:16px">
+      <button class="btn" onclick="dreamForm('${d.id}')">✏️ Editar</button>
+      <button class="btn ${d.achieved?'':'pri'}" onclick="toggleAchieved('${d.id}')">${d.achieved?'↺ Ainda não':'🏆 Realizei!'}</button>
+    </div>`);
+}
+function toggleStep(id, i){ const d=S.dreams.find(x=>x.id===id); d.steps[i].done=!d.steps[i].done; save(); dreamView(id); render(); }
+function delStep(id, i){ const d=S.dreams.find(x=>x.id===id); d.steps.splice(i,1); save(); dreamView(id); render(); }
+function addStep(id){ const v=$('#newStep').value.trim(); if(!v) return; const d=S.dreams.find(x=>x.id===id); (d.steps=d.steps||[]).push({t:v,done:false}); save(); dreamView(id); render(); setTimeout(()=>$('#newStep')?.focus(),50); }
+function toggleAchieved(id){ const d=S.dreams.find(x=>x.id===id); d.achieved=!d.achieved; save(); closeSheet(); render(); if(d.achieved){ vibrate([40,60,40]); toast('Sonho realizado! Que orgulho 🏆'); } }
+
+function personForm(id){
+  const p = id ? S.people.find(x=>x.id===id) : null;
+  formPhoto = null;
+  sheet(`<h2>${p?esc(p.name):'Por quem você vence?'}</h2>
+    <p class="small muted">Filhos, pais, cônjuge, amigos… ou você mesmo no futuro. Olhe para essas fotos quando a vontade vier.</p>
+    ${photoPicker(p && PH[p.photo], true)}
+    <label>Nome</label><input id="pName" value="${esc(p?p.name:'')}" placeholder="Ex.: Minha filha Ana">
+    <label>Por que essa pessoa te motiva? (opcional)</label><textarea id="pWhy" placeholder="Quero estar presente em cada fase da vida dela...">${esc(p?p.why||'':'')}</textarea>
+    <button class="btn pri" style="margin-top:16px" onclick="savePerson('${id||''}')">Salvar</button>
+    ${p?`<button class="btn ghost" style="margin-top:8px;color:var(--bad)" onclick="delPerson('${p.id}')">Remover</button>`:''}`);
+}
+async function savePerson(id){
+  const name = $('#pName').value.trim(); if (!name){ toast('Escreva um nome'); return; }
+  let p = id ? S.people.find(x=>x.id===id) : null;
+  if (!p){ p = {id:uid(), name, photo:null}; S.people.push(p); }
+  p.name = name; p.why = $('#pWhy').value.trim();
+  if (formPhoto){ if (p.photo) await phDel(p.photo); p.photo = 'p-'+uid(); await phPut(p.photo, formPhoto); }
+  save(); closeSheet(); go('dreams');
+}
+async function delPerson(id){
+  if (!confirm('Remover esta pessoa do mapa?')) return;
+  const p = S.people.find(x=>x.id===id); if (p) await phDel(p.photo);
+  S.people = S.people.filter(x=>x.id!==id); save(); closeSheet(); go('dreams');
+}
+// Cartão da tela inicial: um sonho ou pessoa aleatória, para lembrar o porquê
+function whyCard(){
+  const items = [...S.dreams.filter(d=>!d.achieved).map(d=>({img:PH[d.photo], t:d.title, s:d.why||'Um dos seus sonhos'})),
+                 ...S.people.map(p=>({img:PH[p.photo], t:p.name, s:p.why||'Você vence por essa pessoa'}))];
+  if (!items.length) return `<div class="card row" style="cursor:pointer" onclick="go('dreams')"><div style="font-size:34px">🌠</div><div><b>Monte o seu mapa dos sonhos</b><div class="small muted">Fotos das pessoas e dos sonhos pelos quais você vai vencer.</div></div></div>`;
+  const it = items[new Date().getHours() % items.length];
+  return `<div class="whycard" onclick="go('dreams')" style="${it.img?`background-image:url(${it.img})`:`background:${AFF_BG[hash(it.t)%AFF_BG.length]}`}">
+    <div class="dshade"><div class="tiny" style="color:rgba(255,255,255,.7)">🌠 LEMBRE POR QUE VOCÊ COMEÇOU</div><div class="dtitle" style="font-size:20px">${esc(it.t)}</div><div class="dsub">${esc(it.s)}</div></div></div>`;
+}
 
 /* ================== Widget (iPhone) ================== */
 function syncWidget(){
@@ -928,21 +1278,23 @@ function backupCard(){
     <button class="btn ghost" style="margin-top:8px;color:var(--bad)" onclick="wipe()">Apagar todos os dados</button></div>`;
 }
 function exportData(){
-  if (NATIVE && NATIVE.share){ NATIVE.share.postMessage({name:`livre-backup-${todayKey()}.json`, content:JSON.stringify(S,null,2)}); return; }
-  const blob = new Blob([JSON.stringify(S,null,2)],{type:'application/json'});
+  const json = JSON.stringify({...S, photos: PH});
+  if (NATIVE && NATIVE.share){ NATIVE.share.postMessage({name:`livre-backup-${todayKey()}.json`, content:json}); return; }
+  const blob = new Blob([json],{type:'application/json'});
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `livre-backup-${todayKey()}.json`; a.click();
   setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
 }
 function importData(inp){
   const f = inp.files[0]; if(!f) return;
   const r = new FileReader();
-  r.onload = () => { try { const d = JSON.parse(r.result); if(!d.habits) throw 0; if(!confirm('Substituir os dados atuais pelo backup?')) return; S = {urges:[], journal:[], pledges:{}, ...d}; ensureAff(); save(); syncReminders(); toast('Backup restaurado'); go('home'); } catch(e){ toast('Arquivo inválido'); } };
+  r.onload = async () => { try { const d = JSON.parse(r.result); if(!d.habits) throw 0; if(!confirm('Substituir os dados atuais pelo backup?')) return; const photos = d.photos || {}; delete d.photos; S = {urges:[], journal:[], pledges:{}, ...d}; ensureAff(); for (const id in photos) await phPut(id, photos[id]); save(); syncReminders(); toast('Backup restaurado'); go('home'); } catch(e){ toast('Arquivo inválido'); } };
   r.readAsText(f); inp.value='';
 }
-function wipe(){ if(!confirm('Apagar TODOS os dados do app? Isso não pode ser desfeito.')) return; S={habits:[],urges:[],journal:[],pledges:{},activeId:null}; ensureAff(); save(); syncReminders(); go('home'); }
+function wipe(){ if(!confirm('Apagar TODOS os dados do app? Isso não pode ser desfeito.')) return; Object.keys(PH).forEach(phDel); S={habits:[],urges:[],journal:[],pledges:{},activeId:null}; ensureAff(); save(); syncReminders(); go('home'); }
 
 /* ================== Início ================== */
 render();
+phLoadAll().then(() => { if (tab==='home' || tab==='dreams') render(); });
 syncWidget();
 if (S.aff.reminders.count) syncReminders();
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(()=>{});

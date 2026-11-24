@@ -12,6 +12,8 @@
 	<key>CFBundleShortVersionString</key><string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key><string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>ITSAppUsesNonExemptEncryption</key><false/>
+	<key>NSCameraUsageDescription</key><string>Para tirar fotos para o seu Mapa dos Sonhos.</string>
+	<key>NSPhotoLibraryUsageDescription</key><string>Para escolher fotos para o seu Mapa dos Sonhos.</string>
 	<key>LSRequiresIPhoneOS</key><true/>
 	<key>UILaunchScreen</key>
 	<dict>
